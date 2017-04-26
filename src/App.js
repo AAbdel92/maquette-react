@@ -18,12 +18,34 @@ class App extends Component {
       loggedIn : false
     }
   }
+
+  changer = (etat) => {
+    this.setState({
+      loggedIn : etat
+    })
+  }
+
+    MonHeader = (props) => {
+      return (
+        <MyHeader 
+          etat={this.changer}          
+        />
+      );
+    }
+
+    MonFooter = (props) => {
+      return (
+        <MyFooter
+          etat={this.changer}
+        />
+      )
+    })
   
   render() {
     return (
       <Router history={history}>
         <div>
-          <Route path="/" component={MyHeader} />          
+          <Route path="/" render={this.MonHeader}/>          
           <Route
             exact path="/"
             render={() => (
@@ -35,7 +57,7 @@ class App extends Component {
             )}/>
           <Route path="/admin" component={AdminPage} />
           <Route path="/dashboard" component={WorkBook} />
-          <Route path="/" component={MyFooter} />
+          <Route path="/" render={this.MonFooter} method={this.changer}/>
         </div>
       </Router>
     );
